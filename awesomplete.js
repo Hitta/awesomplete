@@ -155,10 +155,10 @@ _.prototype = {
 
 		var value = this.input.value.trim();
 
-		if(value !== this.lastValue) {
+		if (value !== this.lastValue) {
 			$.fire(this.input, "awesomplete-change", {
-                newValue: value
-            });
+				newValue: value
+			});
 			this.lastValue = value;
 		}
 
