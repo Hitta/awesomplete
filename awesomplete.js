@@ -36,6 +36,7 @@ var _ = function (input, o) {
 	}, o);
 
 	this.index = -1;
+	this.lastValue = '';
 
 	// Create necessary elements
 
@@ -62,6 +63,7 @@ var _ = function (input, o) {
 	$.bind(this.input, {
 		"input": this.evaluate.bind(this),
 		"blur": this.close.bind(this),
+		"keyup": this.change.bind(this),
 		"keydown": function(evt) {
 			var c = evt.keyCode;
 
@@ -149,6 +151,19 @@ _.prototype = {
 		$.fire(this.input, "awesomplete-close");
 	},
 
+	change: function () {
+
+		var value = this.input.value.trim();
+
+		if(value !== this.lastValue) {
+			$.fire(this.input, "awesomplete-change", {
+                newValue: value
+            });
+			this.lastValue = value;
+		}
+
+	},
+
 	open: function () {
 		this.ul.removeAttribute("hidden");
 
@@ -197,6 +212,7 @@ _.prototype = {
 
 			$.fire(this.input, "awesomplete-select", {
 				text: selected.textContent,
+				selected: selected,
 				preventDefault: function () {
 					prevented = true;
 				}
