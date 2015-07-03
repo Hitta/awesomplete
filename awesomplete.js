@@ -255,7 +255,13 @@ _.prototype = {
 		else {
 			this.close();
 		}
+	},
+
+	setValue: function (value) {
+		this.input.value = value;
+		this.lastValue = value;
 	}
+
 };
 
 // Static methods/properties
